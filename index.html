@@ -1,0 +1,172 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ site.title }} – {{ site.description }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+  <!-- Navigáció -->
+  <header class="navbar">
+    <div class="container nav-container">
+      <a href="#fooldal" class="brand">
+        <!-- Ha feltöltöd a logódat images/logo.png néven, ezt a sort aktiválhatjuk -->
+        <span>Jīvatāla Yoga</span>
+      </a>
+      <button class="menu-toggle" aria-label="Menü">☰</button>
+      <nav class="nav-links">
+        <a href="#yin-yoga">A Yin jógáról</a>
+        <a href="#rolam">Rólam</a>
+        <a href="#orarend">Órarend & Árak</a>
+        <a href="#kapcsolat">Kapcsolat & Visszajelzés</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Főoldal (Hero) - Üdvözlő ablak nélkül, tiszta hangulattal -->
+  <section id="fooldal" class="hero" style="background-image: linear-gradient(rgba(42, 59, 48, 0.35), rgba(42, 59, 48, 0.45)), url('{{ site.data.tartalom.hero.hatterkep }}');">
+    <div class="hero-content">
+      <h1>{{ site.data.tartalom.hero.focim }}</h1>
+      <p class="subtitle">{{ site.data.tartalom.hero.alcim }}</p>
+      <a href="#orarend" class="btn btn-primary">{{ site.data.tartalom.hero.gomb_szoveg }}</a>
+    </div>
+  </section>
+
+  <!-- A Yin jógáról -->
+  <section id="yin-yoga" class="section">
+    <div class="container grid-2">
+      <div class="text-block">
+        <h2>{{ site.data.tartalom.yin_yoga.cim }}</h2>
+        <div class="divider"></div>
+        <p>{{ site.data.tartalom.yin_yoga.szoveg_1 }}</p>
+        <p>{{ site.data.tartalom.yin_yoga.szoveg_2 }}</p>
+      </div>
+      <div class="image-block">
+        <img src="{{ site.data.tartalom.yin_yoga.kep }}" alt="Yin Yoga">
+      </div>
+    </div>
+  </section>
+
+  <!-- Rólam -->
+  <section id="rolam" class="section section-warm">
+    <div class="container grid-2 reverse-mobile">
+      <div class="image-block">
+        <img src="{{ site.data.tartalom.rolam.kep }}" alt="Rólam">
+      </div>
+      <div class="text-block">
+        <h2>{{ site.data.tartalom.rolam.cim }}</h2>
+        <div class="divider"></div>
+        <p>{{ site.data.tartalom.rolam.szoveg_1 }}</p>
+        <p>{{ site.data.tartalom.rolam.szoveg_2 }}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Órarend és Árak -->
+  <section id="orarend" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2>{{ site.data.tartalom.orarend.cim }}</h2>
+        <div class="divider center"></div>
+        <p>{{ site.data.tartalom.orarend.bevezeto }}</p>
+      </div>
+
+      <div class="schedule-grid">
+        <!-- Órák listája (Kattintásra lenyíló leírással) -->
+        <div class="schedule-list">
+          <h3>Aktuális órák</h3>
+          {% for ora in site.data.tartalom.orarend.orak %}
+          <details class="class-card">
+            <summary>
+              <div class="class-meta">
+                <span class="class-time">{{ ora.idopont }}</span>
+                <span class="class-badge">{{ ora.tipus }}</span>
+              </div>
+              <div class="class-title">
+                <strong>{{ ora.nev }}</strong>
+                <span class="toggle-icon">+</span>
+              </div>
+            </summary>
+            <div class="class-desc">
+              <p>{{ ora.leiras }}</p>
+            </div>
+          </details>
+          {% endfor %}
+
+          <div class="cta-box">
+            <a href="{{ site.data.tartalom.orarend.jelentkezes_google_form_link }}" target="_blank" class="btn btn-primary">Jelentkezés órára (Google Űrlap)</a>
+          </div>
+        </div>
+
+        <!-- Árak és fizetés -->
+        <div class="prices-box">
+          <h3>Árak és bérletek</h3>
+          <ul class="price-list">
+            {% for tetel in site.data.tartalom.orarend.arak %}
+            <li>
+              <span>{{ tetel.megnevezes }}</span>
+              <strong>{{ tetel.ar }}</strong>
+            </li>
+            {% endfor %}
+          </ul>
+          <div class="payment-info">
+            <h4>Fizetési lehetőségek</h4>
+            <p>{{ site.data.tartalom.orarend.fizetesi_modok }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kapcsolat és Visszajelzés -->
+  <section id="kapcsolat" class="section section-warm">
+    <div class="container contact-container">
+      <h2>{{ site.data.tartalom.kapcsolat.cim }}</h2>
+      <div class="divider center"></div>
+      <p class="contact-intro">{{ site.data.tartalom.kapcsolat.szoveg }}</p>
+
+      <div class="contact-cards">
+        <div class="contact-card">
+          <h3>Elérhetőségek</h3>
+          <p><strong>E-mail:</strong> <a href="mailto:{{ site.data.tartalom.kapcsolat.email }}">{{ site.data.tartalom.kapcsolat.email }}</a></p>
+          <p><strong>Telefon:</strong> {{ site.data.tartalom.kapcsolat.telefon }}</p>
+          <div class="social-links">
+            <a href="{{ site.data.tartalom.kapcsolat.instagram }}" target="_blank">Instagram</a> • 
+            <a href="{{ site.data.tartalom.kapcsolat.facebook }}" target="_blank">Facebook</a>
+          </div>
+        </div>
+
+        <div class="contact-card feedback-card">
+          <h3>Visszajelzés küldése</h3>
+          <p>Játszottál már velem a szőnyegen? Oszd meg a tapasztalataidat anonim módon vagy névvel.</p>
+          <a href="{{ site.data.tartalom.kapcsolat.feedback_google_form_link }}" target="_blank" class="btn btn-outline">Visszajelző űrlap megnyitása</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>Jīvatāla Yoga – The Rhythm of Being</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobil menü nyitása/zárása
+    const toggle = document.querySelector('.menu-toggle');
+    const nav = document.querySelector('.nav-links');
+    toggle.addEventListener('click', () => nav.classList.toggle('active'));
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => nav.classList.remove('active'));
+    });
+  </script>
+</body>
+</html>
